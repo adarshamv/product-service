@@ -16,6 +16,8 @@ public class ProductRequest {
     @Positive(message = "Price must be greater than zero")
     private Double price;
 
+    private Integer discount;
+
     @Positive(message = "Stock must be greater than zero")
     private Integer stock;
 

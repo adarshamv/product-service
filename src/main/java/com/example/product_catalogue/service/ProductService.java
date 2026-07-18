@@ -1,18 +1,22 @@
 package com.example.product_catalogue.service;
 
 import com.example.product_catalogue.dto.ProductRequest;
-import com.example.product_catalogue.dto.ProductResponse;
+import com.example.product_catalogue.dto.ProductResponseV1;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ProductService {
-    ProductResponse createProduct(ProductRequest request);
+    ProductResponseV1 createProduct(ProductRequest request);
 
-    List<ProductResponse > getAllProducts();
+    Page<ProductResponseV1> getAllProducts(Pageable pageable);
 
-    ProductResponse getProductById(Long id);
+//    List<ProductResponseV1> getAllProducts();
 
-    ProductResponse updateProduct(Long id,ProductRequest request);
+    ProductResponseV1 getProductById(Long id);
+
+    ProductResponseV1 updateProduct(Long id, ProductRequest request);
 
     void deleteProduct(Long id);
 }

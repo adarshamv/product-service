@@ -10,5 +10,4 @@ public class ProductCatalogueApplication {
 
 		SpringApplication.run(ProductCatalogueApplication.class, args);
 	}
-
 }
