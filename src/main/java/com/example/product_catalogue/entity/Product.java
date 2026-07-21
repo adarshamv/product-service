@@ -3,6 +3,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Entity
 @Table(name = "products")
 @Getter
@@ -31,4 +34,7 @@ public class Product {
 
     @Column(nullable = false)
     private String category;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems=new ArrayList<>();
 }
