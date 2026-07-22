@@ -1,14 +1,11 @@
-package com.example.product_catalogue.Controller;
+package com.example.product_catalogue.controller;
 
-import com.example.product_catalogue.dto.ProductRequest;
 import com.example.product_catalogue.dto.UserRequest;
 import com.example.product_catalogue.dto.UserResponse;
 import com.example.product_catalogue.service.UserService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

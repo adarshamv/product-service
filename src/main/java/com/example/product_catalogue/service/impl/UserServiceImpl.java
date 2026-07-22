@@ -3,6 +3,7 @@ package com.example.product_catalogue.service.impl;
 import com.example.product_catalogue.dto.UserRequest;
 import com.example.product_catalogue.dto.UserResponse;
 import com.example.product_catalogue.entity.User;
+import com.example.product_catalogue.exception.UserNotFoundException;
 import com.example.product_catalogue.repository.UserRepository;
 import com.example.product_catalogue.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -42,19 +43,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse getUserById(Long id) {
         User user=userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
         return mapToResponse(user);
     }
 
     @Override
     public UserResponse updateUser(Long id, UserRequest request) {
-        return null;
+        User user=userRepository.findById(id)
+                .orElseThrow(()->new UserNotFoundException(id));
+
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+
+        User updatedUser=userRepository.save(user);
+        return mapToResponse(updatedUser);
     }
 
     @Override
     public void deleteUser(Long id) {
         User user=userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
         userRepository.delete(user);
     }
     private UserResponse mapToResponse(User user){

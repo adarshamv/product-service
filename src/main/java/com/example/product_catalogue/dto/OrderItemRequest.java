@@ -12,7 +12,7 @@ import lombok.*;
 public class OrderItemRequest {
 
     @NotNull(message = "Product ID is required")
-    private Long id;
+    private Long ProductId;
 
     @Min(value = 1,message = "Qunatity must be atleast 1")
     private Integer quantity;

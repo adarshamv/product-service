@@ -1,4 +1,4 @@
-package com.example.product_catalogue.Controller;
+package com.example.product_catalogue.controller;
 
 import com.example.product_catalogue.dto.ProductResponseV1;
 import com.example.product_catalogue.dto.ProductResponseV2;

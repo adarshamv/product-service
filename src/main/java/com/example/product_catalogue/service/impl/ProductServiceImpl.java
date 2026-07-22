@@ -3,6 +3,7 @@ package com.example.product_catalogue.service.impl;
 import com.example.product_catalogue.dto.ProductRequest;
 import com.example.product_catalogue.dto.ProductResponseV1;
 import com.example.product_catalogue.entity.Product;
+import com.example.product_catalogue.exception.ProductNotFoundException;
 import com.example.product_catalogue.repository.ProductRepository;
 import com.example.product_catalogue.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
@@ -57,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Product not found with id : " + id));
+                        new ProductNotFoundException(id));
 
         return mapToResponse(product);
     }
@@ -67,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Product not found with id : " + id));
+                        new ProductNotFoundException(id));
 
         product.setName(request.getName());
         product.setDescription(request.getDescription());
@@ -86,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Product not found with id : " + id));
+                        new ProductNotFoundException(id));
 
         productRepository.delete(product);
     }

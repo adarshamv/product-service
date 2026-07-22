@@ -1,4 +1,4 @@
-package com.example.product_catalogue.Controller;
+package com.example.product_catalogue.controller;
 
 import com.example.product_catalogue.dto.ProductRequest;
 import com.example.product_catalogue.dto.ProductResponseV1;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
