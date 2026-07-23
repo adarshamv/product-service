@@ -6,7 +6,6 @@ import com.example.product_catalogue.entity.Product;
 import com.example.product_catalogue.exception.ProductNotFoundException;
 import com.example.product_catalogue.repository.ProductRepository;
 import com.example.product_catalogue.service.ProductService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,6 +91,48 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+    @Override
+    public List<ProductResponseV1> findByName(String name) {
+        return productRepository.findByName(name)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public List<ProductResponseV1> findByPriceGreaterThan(Double price) {
+        return productRepository.findByPriceGreaterThan(price)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public List<ProductResponseV1> findByStockLessThan(Integer stock) {
+        return productRepository.findByStockLessThan(stock)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public List<ProductResponseV1> findByPriceBetween(Double minPrice, Double maxPrice) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public void updateStock(Long id, Integer stock) {
+        productRepository.updateStock(id,stock);
+    }
+
+    @Override
+    public void deleteOutOfStockProducts() {
+        productRepository.deleteOutofStockProducts();
+    }
+
     private ProductResponseV1 mapToResponse(Product product) {
 
         return ProductResponseV1.builder()
@@ -104,4 +145,5 @@ public class ProductServiceImpl implements ProductService {
                 .category(product.getCategory())
                 .build();
     }
+
 }

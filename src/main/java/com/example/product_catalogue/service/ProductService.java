@@ -19,4 +19,16 @@ public interface ProductService {
     ProductResponseV1 updateProduct(Long id, ProductRequest request);
 
     void deleteProduct(Long id);
+
+    List<ProductResponseV1> findByName(String name);
+
+    List<ProductResponseV1> findByPriceGreaterThan(Double price);
+
+    List<ProductResponseV1> findByStockLessThan(Integer stock);
+
+    List<ProductResponseV1> findByPriceBetween(Double minPrice, Double maxPrice);
+
+    void updateStock(Long id,Integer stock);
+
+    void deleteOutOfStockProducts();
 }
