@@ -26,28 +26,28 @@ pipeline {
             }
         }
 
-        stage('Deploy Staging') {
-            steps {
-                // Your Kubernetes deployment commands go here
-            }
-        }
-
-        stage('Staging Smoke Test') {
-            steps {
-                // Your /actuator/health check goes here
-            }
-        }
-
-        stage('Production Approval') {
-            steps {
-                input message: 'Deploy to production?', ok: 'Deploy'
-            }
-        }
-
-        stage('Deploy Production') {
-            steps {
-                // Your production deployment commands go here
-            }
-        }
+//         stage('Deploy Staging') {
+//             steps {
+//                 // Your Kubernetes deployment commands go here
+//             }
+//         }
+//
+//         stage('Staging Smoke Test') {
+//             steps {
+//                 // Your /actuator/health check goes here
+//             }
+//         }
+//
+//         stage('Production Approval') {
+//             steps {
+//                 input message: 'Deploy to production?', ok: 'Deploy'
+//             }
+//         }
+//
+//         stage('Deploy Production') {
+//             steps {
+//                 // Your production deployment commands go here
+//             }
+//         }
     }
 }
