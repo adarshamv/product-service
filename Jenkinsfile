@@ -13,18 +13,18 @@ pipeline {
             }
         }
 
-        stage('Build & Push Image') {
-            steps {
-                container('kaniko') {
-                    sh '''
-                        /kaniko/executor \
-                          --context="${WORKSPACE}" \
-                          --dockerfile="${WORKSPACE}/Dockerfile" \
-                          --destination="YOUR_ECR_REPOSITORY:${BUILD_NUMBER}"
-                    '''
+            stage('Build & Push Image') {
+                steps {
+                    container('kaniko') {
+                        sh '''
+                            /kaniko/executor \
+                              --context="${WORKSPACE}" \
+                              --dockerfile="${WORKSPACE}/Dockerfile" \
+                              --destination="379063509266.dkr.ecr.ap-south-1.amazonaws.com/dev/app:${BUILD_NUMBER}"
+                        '''
+                    }
                 }
             }
-        }
 
 //         stage('Deploy Staging') {
 //             steps {
