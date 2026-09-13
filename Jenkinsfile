@@ -4,10 +4,10 @@ pipeline {
     }
 
     stages {
-        stage('Test Agent') {
+        stage('Unit Tests') {
             steps {
                 container('maven') {
-                    sh 'mvn --version'
+                    sh 'mvn test'
                 }
             }
         }
