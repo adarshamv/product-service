@@ -42,16 +42,6 @@ public class ProductServiceImpl implements ProductService {
         return productPage.map(this::mapToResponse);
     }
 
-//    @Override
-//    public List<ProductResponseV1> getAllProducts() {
-//
-//        List<Product> products = productRepository.findAll();
-//
-//        return products.stream()
-//                .map(this::mapToResponse)
-//                .toList();
-//    }
-
     @Override
     public ProductResponseV1 getProductById(Long id) {
 

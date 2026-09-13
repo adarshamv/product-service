@@ -31,3 +31,20 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Local environment / secrets ###
+.env
+.env.*
+!.env.example
+
+### Spring local configuration ###
+application-local.yml
+application-local.properties
+
+### Logs ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+Thumbs.db

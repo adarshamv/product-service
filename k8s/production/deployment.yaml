@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-catalogue
+  namespace: production
+  labels:
+    app: product-catalogue
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: product-catalogue
+
+  template:
+    metadata:
+      labels:
+        app: product-catalogue
+
+    spec:
+      serviceAccountName: product-catalogue
+
+      containers:
+        - name: product-catalogue
+          image: 379063509266.dkr.ecr.ap-south-1.amazonaws.com/dev/app:02
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          env:
+            - name: DB_URL
+              value: "jdbc:postgresql://dev-postgres.cv64us4amzbz.ap-south-1.rds.amazonaws.com:5432/product"
+
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: product-catalogue-db
+                  key: username
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: product-catalogue-db
+                  key: password
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "400Mi"
+            limits:
+              cpu: "400m"
+              memory: "700Mi"
+
+          volumeMounts:
+            - name: secrets-store
+              mountPath: /mnt/secrets-store
+              readOnly: true
+
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: product-catalogue-db
