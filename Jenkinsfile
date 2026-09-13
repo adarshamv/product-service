@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Test Agent') {
             steps {
-                // run Maven version command here
+                sh 'mvn --version'
             }
         }
     }
