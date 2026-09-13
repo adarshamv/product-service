@@ -26,11 +26,21 @@ pipeline {
                 }
             }
 
-//         stage('Deploy Staging') {
-//             steps {
-//                 // Your Kubernetes deployment commands go here
-//             }
-//         }
+            stage('Deploy Staging') {
+                steps {
+                    container('kubectl') {
+                        sh '''
+                            kubectl set image deployment/product-catalogue \
+                              product-catalogue=379063509266.dkr.ecr.ap-south-1.amazonaws.com/dev/app:${BUILD_NUMBER} \
+                              -n staging
+
+                            kubectl rollout status deployment/product-catalogue \
+                              -n staging \
+                              --timeout=5m
+                        '''
+                    }
+                }
+            }
 //
 //         stage('Staging Smoke Test') {
 //             steps {
